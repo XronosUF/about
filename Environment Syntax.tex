@@ -13,6 +13,8 @@ https://ximera.osu.edu/course/kisonecat/ximeraSample/sample
 
 To contribute to this documentation and/or see who else is contributing reference the last section.
 
+\newpage
+
 \section{For the User}
 This content is for the person writing the latex code. It contains information regarding the environments currently implemented. If you wish to add more (or tweak the code) see the "For the developer" section below.
 
@@ -97,6 +99,7 @@ Possible options: caseInsensitive, sameParity,
 
 \item "id="
 This assigns a reference id for later in the problem. So you can say "id=this" and then later have the command "js{big+1}"
+
 
 
 \end{itemize}
@@ -192,11 +195,40 @@ Notice that the numbering may change depending on if the document is labeled as 
 \subsection{Grading}
 To be added... hopefully.
 
+\subsection{Instructor Notes}
+The environment "instructorNotes" is for handout mode only.
+
+\newpage
+\section{Commands to dress up and/or add sub-environments}
+These are commands for the user to change the look/behavior of environments.
+
+\subsection{Hang}
+
+\subsection{Hung}
+
+\subsection{Hint}
+
+\subsection{Dialogue}
+
+\subsection{Foldable and Expandable}
+
+\subsection{leash}
+
+\subsection{xkcd}
+
+\subsection{code}
+
+\subsection{python}
+
+\subsection{sageCell}
+
+\newpage
 \section{For the Developer}
 Below is more detailed information on how the environments are coded and how to add new versions in some cases.
 
 \subsection{Question Environments}
 The question environments are built using an underlying command called problemEnvironConfig and the NewEnviron package. 
+
 \subsubsection{To add a new form of question}
 In order to add a new form of a question environment, simply define the question using the problemEnvironConfig command. For example you can use; (Commented out for compile-ability)
 
@@ -250,7 +282,37 @@ And we wanted 3 problems, we would pull problems 1, 2, and 5 (where 1, 2, and 5 
 
 \subsection{Answer Environments}
 
+\subsection{Randomization}
+Randomizing commands have been added to be used for development primarily. It uses the pgf random number generators with an (independently) random number seed.
 
+\subsubsection{The RandMe Command}
+The command "RandMe" is a wrapper around the default random number syntax (which is a touch unwieldy at times). It takes 3 arguments to generate (a given number of) numbers in a range, and name each to a given command name.
+
+Syntax: RandMe{Max}{NAME}{CounterNumber}. The Max value dictates the maximum number, so a random number is generated between 1 and MAX. The NAME (without a backslash) is the BASE desired command name, and finally CounterNumber is how many of the random numbers you want.
+
+You will end with commands named "NAME(RN)" where (RN) is the (capital) roman numeral of the counter's generated order. 
+For token expansion and command calls reasons, you sometimes also need it to be in counter form instead of command form. So RandMe generates an identically named counter with the desired randomized value.
+So, for example;
+
+RandMe{10}{Test}{3} 
+
+Would generate 3 commands and counters. If the random numbers generated were 3, 10, 1 (in that order) then we would get the following;
+
+\newcommand{\TestI}{3}
+\newcounter{TestI}
+\setcounter{TestI}{3}
+
+\newcommand{\TestII}{10}
+\newcounter{TestII}
+\setcounter{TestII}{10}
+
+\newcommand{\TestIII}{1}
+\newcounter{TestIII}
+\setcounter{TestIII}{1}
+
+
+
+\newpage
 \section{About this Documentation}
 \subsection{Who to ask}
 The question environment and shuffle info in this file largely added by:\\
@@ -259,5 +321,7 @@ Jason Nowell, JNowell@ufl.edu\\
 
 \subsection{Information Still Needed}
 Most of the answer environment info is still needed. Only skeletal information is currently included.
+
+Most of the sub-environment information is still needed.
 
 \end{document}
